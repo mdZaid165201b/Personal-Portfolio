@@ -61,15 +61,7 @@ const createProject = async (req, res, next) => {
   }
 };
 
-const updateProject = async(req, res, next) => {
-    try{
 
-    }
-    catch(err){
-        console.log(err.message);
-        res.status(500).json(err.message)
-    }
-}
 
 module.exports = {
   createProject,
