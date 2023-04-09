@@ -24,8 +24,10 @@ const createProject = async (req, res, next) => {
         const result = cloudinary.uploader.upload(file.path, options);
         promiseArr.push(result);
       }
-      
+      console.log(req.files)
       const result = await Promise.all(promiseArr);
+      // console.log("body : ",req.body);
+      // console.log(result)
       fs.rm("./tmp", { recursive: true }, (err) => {
         if (err) {
           console.log(err);
@@ -49,9 +51,10 @@ const createProject = async (req, res, next) => {
             url: imagesUrlArr[0]['url'],
         },
         projectImages: imagesUrlArr
-    }  
-    
+    }
+
     const finalObject = new Project(newProjectObj);
+      console.log(finalObject);
     const response = await finalObject.save();
 
     res.status(201).json({success: true, response});
@@ -60,6 +63,23 @@ const createProject = async (req, res, next) => {
     res.status(500).json(err.message);
   }
 };
+
+const updateProject = async(req, res, next) => {
+    try{
+        const { images, projectName, assign, status, deadline,  } = req.body;
+        const fetchedProject = await  Project.findById(req.params.id);
+        if(fetchedProject){
+            
+        }
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "internal server error",
+            error: err.message
+        })
+    }
+}
 
 
 
