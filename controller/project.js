@@ -259,10 +259,52 @@ const deleteProject = async  (req, res, next) => {
             message: err.message
         });
     }
+};
+
+const findProjects = async (req, res, next) => {
+    try{
+        const projects = await Project.find({}).sort({deadline: -1});
+        res.status(200).json({
+            success: true,
+            projects
+        })
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+};
+
+const findProject = async (req, res, next) => {
+    try{
+        const fetchedProject = await Project.findById(req.params.id);
+        if(fetchedProject){
+            res.status(200).json({
+                success: true,
+                fetchedProject
+            })
+        }
+        else{
+            res.status(404).json({
+                success: false,
+                message: "project not found!!!"
+            })
+        }
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
 }
 
 module.exports = {
     createProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    findProjects,
+    findProject
 };

@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema(
       required: true,
       max: 15,
     },
+      tagLine: {
+        type: String,
+          required: true,
+          max: [50,"limit exceeded!!!"]
+      },
     email: {
       type: String,
       required: true,
@@ -21,7 +26,8 @@ const userSchema = mongoose.Schema(
     //   min: [12, "length must be at least 12 character!!!"], // comment just for development
     },
     profilePic: {
-      type: String,
+      type: Object,
+        default: {}
     },
     githubLink: {
       type: "String",

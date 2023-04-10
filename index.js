@@ -36,7 +36,7 @@ const connectDB = () => {
     mongoose.connect(process.env.DB_CONNECTION_URI).then(() => {
       console.log("Database Connected");
       app.listen(PORT, () => {
-        console.log("Server is listening on port: " + PORT);
+        console.log("Server is listening on port :" + PORT);
       });
     });
   } catch (err) {

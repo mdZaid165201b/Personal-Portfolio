@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const multer = require("multer");
 const makeUploadDir = require("../middleware/makeDirectory");
-const {createProject, updateProject, deleteProject} = require("../controller/project");
+const {createProject, updateProject, deleteProject, findProject, findProjects} = require("../controller/project");
+const multerMiddleware = require("../middleware/multerMiddleware");
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,10 +28,14 @@ let upload = multer({
     fileFilter: filefilter,
 });
 
-router.post("/create-project", makeUploadDir, upload.array("image", 10), createProject);
+router.post("/create-project", makeUploadDir, multerMiddleware.array("image", 10), createProject);
 
-router.put("/update-project/:id", makeUploadDir, upload.array("image", 10), updateProject)
+router.put("/update-project/:id", makeUploadDir, multerMiddleware.array("image", 10), updateProject);
 
-router.delete("/delete-project/:id", deleteProject)
+router.delete("/delete-project/:id", deleteProject);
+
+router.get("/get-projects", findProjects);
+
+router.get("/get-project/:id", findProject);
 
 module.exports = router;
