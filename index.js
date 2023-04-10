@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cloudinary = require("cloudinary").v2;
 const PORT = process.env.PORT || 8000;
 
 // ------------------------------------------import routes-----------------------------------
@@ -12,6 +13,12 @@ const projectRoute = require("./routes/project");
 
 // ------------------------------------------end of routes-----------------------------------
 dotenv.config();
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDNAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET,
+  secure: true
+});
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,7 +36,7 @@ const connectDB = () => {
     mongoose.connect(process.env.DB_CONNECTION_URI).then(() => {
       console.log("Database Connected");
       app.listen(PORT, () => {
-        console.log("Server is listening on port :" + PORT);
+        console.log("Server is listening on port: " + PORT);
       });
     });
   } catch (err) {
