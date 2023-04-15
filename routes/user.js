@@ -13,7 +13,7 @@ router.post("/login", login);
 
 router.put("/update-user/:id",verify ,makeUploadDir, multerMiddleware.single("image"), updateUser);
 
-router.get("/get-user/:id", findUser);
+router.get("/get-user/:id",verify , findUser);
 
 module.exports = router;
 

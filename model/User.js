@@ -14,7 +14,6 @@ const userSchema = mongoose.Schema(
     },
       tagLine: {
         type: String,
-          required: true,
           max: [50,"limit exceeded!!!"]
       },
     email: {
