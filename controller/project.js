@@ -50,6 +50,7 @@ const createProject = async (req, res, next) => {
             assign: req.body.assign,
             status: req.body.status,
             deadline: req.body.deadline,
+            description: req.body.description,
             coverImage: {
                 id: result[0].public_id,
                 url: result[0].secure_url,
@@ -97,6 +98,7 @@ const updateProject = async (req, res, next) => {
                         status: req.body.status === undefined ? fetchedProject.status : req.body.status,
                         assign: req.body.assign === undefined ? fetchedProject.assign : req.body.assign,
                         deadline: req.body.deadline === undefined ? fetchedProject.deadline : req.body.deadline,
+                        description: req.body.description === undefined ? fetchedProject.description : req.body.description,
                         projectImages: updatedImagesArray,
                         coverImage: updatedImagesArray.length >= 0 ? {
                             id: updatedImagesArray[0]['id'],
@@ -155,6 +157,7 @@ const updateProject = async (req, res, next) => {
                     status: req.body.status === undefined ? fetchedProject.status : req.body.status,
                     assign: req.body.assign === undefined ? fetchedProject.assign : req.body.assign,
                     deadline: req.body.deadline === undefined ? fetchedProject.deadline : req.body.deadline,
+                    description: req.body.description === undefined ? fetchedProject.description : req.body.description,
                     projectImages: updatedImagesArray,
                     coverImage: updatedImagesArray.length >= 0 ? {
                         id: updatedImagesArray[0]['id'],
@@ -186,6 +189,7 @@ const updateProject = async (req, res, next) => {
                     status: req.body.status === undefined ? fetchedProject.status : req.body.status,
                     assign: req.body.assign === undefined ? fetchedProject.assign : req.body.assign,
                     deadline: req.body.deadline === undefined ? fetchedProject.deadline : req.body.deadline,
+                    description: req.body.description === undefined ? fetchedProject.description : req.body.description,
                     projectImages: updatedImagesArray,
                     coverImage: updatedImagesArray.length >= 0 ? {
                         id: updatedImagesArray[0]['id'],
@@ -205,6 +209,7 @@ const updateProject = async (req, res, next) => {
                     status: req.body.status === undefined ? fetchedProject.status : req.body.status,
                     assign: req.body.assign === undefined ? fetchedProject.assign : req.body.assign,
                     deadline: req.body.deadline === undefined ? fetchedProject.deadline : req.body.deadline,
+                    description: req.body.description === undefined ? fetchedProject.description : req.body.description,
                 }
                 res.status(201).json({
                     success: true,

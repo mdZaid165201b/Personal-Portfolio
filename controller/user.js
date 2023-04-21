@@ -9,7 +9,6 @@ const register = async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       const hashedPassword = cryptoJs.AES.encrypt(
         password,
@@ -70,6 +69,19 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = async (req, res, next) => {
+  try{
+    const expiredToken = jwt.sign({ id: req.user.id, email: req.user.email }, process.env.JWTTOKEN, {expiresIn: "120"})
+    req.headers.token = null;
+  }
+  catch(err){
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
+}
+
 const updateUser = async (req, res, next) => {
   const options = {
     use_filename: true,
@@ -79,7 +91,6 @@ const updateUser = async (req, res, next) => {
   try {
     const fetchedUser = await User.findById(req.params.id);
     if (fetchedUser) {
-      console.log(req.file);
       let profileImage;
       if (req.file) {
         // when profile image provided
@@ -131,14 +142,14 @@ const updateUser = async (req, res, next) => {
               : req.body.linkedinLink,
           profilePic: req.file !== undefined ? profileImage : {},
         };
-        const final_response = await User.findByIdAndUpdate(
+        const remaining = await User.findByIdAndUpdate(
           req.params.id,
           updatedUserObject,
           { new: true }
         );
         res.status(201).json({
           success: true,
-          final_response,
+          remaining,
         });
       } else if (req.file === undefined) {
         fs.rm("./tmp", { recursive: true }, (err) => {
@@ -175,14 +186,14 @@ const updateUser = async (req, res, next) => {
               ? fetchedUser.linkedinLink
               : req.body.linkedinLink,
         };
-        const final_response = await User.findByIdAndUpdate(
+        const remaining = await User.findByIdAndUpdate(
           req.params.id,
           updatedUserObject,
           { new: true }
         );
         res.status(201).json({
-          success: false,
-          final_response,
+          success: true,
+          remaining,
         });
       }
     } else {
@@ -222,9 +233,37 @@ const findUser = async (req, res, next) => {
   }
 };
 
+const getUserInfo = async(req, res, next) => {
+  try{
+    const user = await User.find();
+    if(user) {
+      const {password, ...other} = user[0]._doc;
+      res.status(200).json({
+        success: true,
+        user: other
+      })
+    }
+    else {
+      res.status(404).json({
+        success: false,
+        message: "no user found!!!"
+      })
+    }
+    
+  }
+  catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
+}
+
 module.exports = {
   register,
   login,
+  logout,
   updateUser,
   findUser,
+  getUserInfo
 };

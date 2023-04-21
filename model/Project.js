@@ -26,6 +26,10 @@ const projectSchema = mongoose.Schema(
         return moment(value, "DD-MM-YYYY");
       },
     },
+    description: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
+    },
     coverImage: {
       type: Object,
       required: true,
