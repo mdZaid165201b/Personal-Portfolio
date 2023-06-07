@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const makeDirectory = (req, res, next) => {
     if(!fs.existsSync("./mytmp")){
+        console.log("direcroy not found!!! makeDirectory middleware if part run")
         fs.mkdirSync("./mytmp", {recursive: true}, (err) => {
             console.log(err)
         })

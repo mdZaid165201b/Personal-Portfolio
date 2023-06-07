@@ -32,7 +32,7 @@ const createProject = async (req, res, next) => {
         //     console.error(err);
         //   }
         // });
-        fs.rm("./tmp", {recursive: true}, (err) => {
+        fs.rm("./mytmp", {recursive: true}, (err) => {
             if (err) {
                 console.log(err);
             }
@@ -171,7 +171,7 @@ const updateProject = async (req, res, next) => {
                 });
             } else if (req.files.length >= 0) {
                 const result = await uploadImages(req.files);
-                fs.rm("./tmp", {recursive: true}, (err) => {
+                fs.rm("./mytmp", {recursive: true}, (err) => {
                     if (err) {
                         console.log(err);
                     }
