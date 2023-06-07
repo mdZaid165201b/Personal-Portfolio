@@ -1,8 +1,8 @@
 const fs = require("fs");
 
 const makeDirectory = (req, res, next) => {
-    if(!fs.existsSync("/tmp")){
-        fs.mkdirSync("/tmp", {recursive: true}, (err) => {
+    if(!fs.existsSync("./mytmp")){
+        fs.mkdirSync("./mytmp", {recursive: true}, (err) => {
             console.log(err)
         })
     }
