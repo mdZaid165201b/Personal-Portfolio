@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 const PORT = process.env.PORT || 8000;
+const fileupload = require('express-fileupload');
 
 // ------------------------------------------import routes-----------------------------------
 
@@ -23,6 +24,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+app.use(fileupload({
+  useTempFiles: true,
+  tempFileDir: "/tmp",
+}))
 
 // ------------------------------------------routes registration-----------------------------------
 app.use("/api", userRoute);
