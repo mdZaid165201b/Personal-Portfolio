@@ -108,7 +108,7 @@ const updateUser = async (req, res, next) => {
             .status(400)
             .json({ success: false, message: "image deletion error!!!" });
         }
-        fs.rm("./tmp", { recursive: true }, (err) => {
+        fs.rm("/tmp", { recursive: true }, (err) => {
           if (err) {
             console.log(err);
           }
@@ -152,7 +152,7 @@ const updateUser = async (req, res, next) => {
           remaining,
         });
       } else if (req.file === undefined) {
-        fs.rm("./tmp", { recursive: true }, (err) => {
+        fs.rm("/tmp", { recursive: true }, (err) => {
           if (err) {
             console.log(err);
           }
