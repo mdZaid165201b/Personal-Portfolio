@@ -6,6 +6,9 @@ const makeDirectory = (req, res, next) => {
             console.log(err)
         })
     }
+    else{
+        console.log("no file exist else part")
+    }
     next();
 }
 
