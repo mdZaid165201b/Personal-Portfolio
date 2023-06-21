@@ -39,6 +39,10 @@ const projectSchema = mongoose.Schema(
         type: Object,
       },
     ],
+    projectLink: {
+      type: String,
+      default: ""
+    }
   },
   { timestamps: true }
 );
