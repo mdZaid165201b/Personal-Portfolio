@@ -93,9 +93,11 @@ const updateUser = async (req, res, next) => {
     if (fetchedUser) {
       let profileImage;
       if (req.file) {
+        console.log(req.file)
+        console.log(req.file.path)
         // when profile image provided
         const image_response = await cloudinary.uploader.upload(
-          req.file,
+          req.file.path,
           options
         );
         profileImage = {
