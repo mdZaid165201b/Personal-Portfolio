@@ -14,7 +14,7 @@ router.post("/login", login);
 router.post("/logout", verify,logout);
 
 
-router.put("/update-user/:id",verify ,makeUploadDir, multerMiddleware.single("image"), updateUser);
+router.put("/update-user/:id",verify , multerMiddleware.single("image"), updateUser);
 
 router.get("/get-user/:id" , findUser);
 
