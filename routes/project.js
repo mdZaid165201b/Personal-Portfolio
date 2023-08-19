@@ -5,9 +5,9 @@ const {createProject, updateProject, deleteProject, findProject, findProjects} =
 const multerMiddleware = require("../middleware/multerMiddleware");
 const verify = require("../middleware/verify");
 
-router.post("/create-project",verify , multerMiddleware.array("image", 10), createProject);
+router.post("/create-project",verify , multerMiddleware.array("image", 40), createProject);
 
-router.put("/update-project/:id",verify , multerMiddleware.array("image", 10), updateProject);
+router.put("/update-project/:id",verify , multerMiddleware.array("image", 40), updateProject);
 
 router.delete("/delete-project/:id",verify ,deleteProject);
 
